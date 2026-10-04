@@ -1,0 +1,149 @@
+{
+  "_leia": "Fonte única dos canais. Agentes e ferramentas leem daqui. Mude aqui, não nos agentes. Horários no fuso America/Campo_Grande. Valores pessoais e caminhos do Mac (raiz_canais_mac, volume_ssd, drive_musicas_mac, painel_url) ficam em ~/.capitao/local.json, fora do Git, e sobrescrevem as chaves de mesmo nome daqui.",
+  "raiz_canais_mac": "<definido em ~/.capitao/local.json>",
+  "drive_musicas_mac": "<definido em ~/.capitao/local.json>",
+  "padrao_video_musica": {
+    "resolucao": "2560x1440",
+    "fps": 24,
+    "fade_in_s": 3,
+    "eq": "48 barras finas marfim com reflexo, pequeno, no canto oposto ao texto da arte"
+  },
+  "canais": {
+    "chill-in-rio": {
+      "nome": "Chill in Rio",
+      "handle": "@chillinrio",
+      "tipo": "musica",
+      "pasta": "Chill in Rio",
+      "estilo": "bossa nova vintage",
+      "idioma_textos": "en",
+      "filtro_faixas": "so faixas com nome em portugues",
+      "duracao_min": null,
+      "duracao_max": null,
+      "dias_publicacao": [
+        "seg",
+        "qua",
+        "sex"
+      ],
+      "horario": "padrao do canal (confirmar no Studio)",
+      "nicho_vidiq": [
+        "bossa nova"
+      ],
+      "observacoes": "Unico canal monetizado. Views caindo desde abril, em relancamento: prioridade em titulo e thumb.",
+      "duracao_obs": "padrao do canal: confirmar com o Capitao e preencher em minutos"
+    },
+    "space-jazz-noir": {
+      "nome": "Space Jazz Noir",
+      "tipo": "musica",
+      "pasta": "Space Jazz Noir",
+      "estilo": "jazz noir, late night, espacial",
+      "idioma_textos": "en",
+      "duracao_min": 120,
+      "duracao_max": 120,
+      "dias_publicacao": [
+        "seg",
+        "qua",
+        "sex"
+      ],
+      "horario": "18:00",
+      "nicho_vidiq": [
+        "noir jazz",
+        "late night jazz",
+        "space jazz"
+      ]
+    },
+    "mindforge-studio": {
+      "nome": "MindForge Studio",
+      "tipo": "musica",
+      "pasta": "MindForge Studio",
+      "estilo": "ambient para foco",
+      "idioma_textos": "en",
+      "duracao_min": 135,
+      "duracao_max": 150,
+      "dias_publicacao": [
+        "seg",
+        "qua",
+        "sex"
+      ],
+      "horario": "08:00",
+      "nicho_vidiq": [
+        "focus music playlist",
+        "flowstate"
+      ],
+      "intro": "skill mindforge-quote-intro: citacao real e atribuida no inicio de todo video"
+    },
+    "classical-adagio": {
+      "nome": "Classical Adagio Music",
+      "handle": "@ClassicalAdagioMusic",
+      "apelidos": [
+        "The Reading Room",
+        "Mind At Ease"
+      ],
+      "tipo": "musica",
+      "pasta": "Classical Adagio Music",
+      "estilo": "neoclassico relax academico, elegante, sem cara de IA",
+      "idioma_textos": "en",
+      "duracao_min": 120,
+      "duracao_max": 120,
+      "dias_publicacao": [
+        "seg",
+        "qua",
+        "sex"
+      ],
+      "horario": "18:30",
+      "nicho_vidiq": [
+        "neoclassical piano reading",
+        "calm classical piano"
+      ],
+      "compartilha_faixas_com": "ars-melancholia"
+    },
+    "ars-melancholia": {
+      "nome": "Ars Melancholia",
+      "tipo": "musica",
+      "pasta": "Ars Melancholia",
+      "estilo": "neoclassico sombrio, dark academia",
+      "idioma_textos": "en",
+      "duracao_min": 120,
+      "duracao_max": 120,
+      "dias_publicacao": [
+        "seg",
+        "qua",
+        "sex"
+      ],
+      "horario": "19:00",
+      "nicho_vidiq": [
+        "dark academia"
+      ],
+      "compartilha_faixas_com": "classical-adagio"
+    },
+    "vice-report-br": {
+      "nome": "Vice Report BR",
+      "handle": "@vicereportbr",
+      "tipo": "narrado",
+      "estilo": "noticias, comparativos e debate sobre GTA 6, em portugues",
+      "idioma_textos": "pt-BR",
+      "lancamento_gta6": "2026-11-19",
+      "video_longo": {
+        "publica": [
+          "seg",
+          "qua",
+          "sex"
+        ],
+        "grava_na_vespera": {
+          "seg": "sab",
+          "qua": "ter",
+          "sex": "qui"
+        }
+      },
+      "shorts": "1 por dia (YouTube, TikTok, Reels)",
+      "voz": "ElevenLabs Matheus, Youthful, Cheery and Bright",
+      "pasta_mac": "~/Documents/Vice Report BR"
+    }
+  },
+  "regras_gerais": [
+    "Nunca usar travessao nem hifen como pontuacao em nada entregue.",
+    "Imagem e video no minimo 2K.",
+    "Primeiro video de canal novo sobe como rascunho privado ate o Capitao aprovar.",
+    "Nada inventado: fatos com fonte, citacoes reais e atribuidas, rumor marcado como rumor.",
+    "Mudanca de nome ou @ de canal e sempre o Capitao quem faz."
+  ]
+}

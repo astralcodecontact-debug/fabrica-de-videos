@@ -1,0 +1,9 @@
+{
+  "name": "capitao",
+  "owner": { "name": "Capitão" },
+  "plugins": [
+    { "name": "omniroute-skills", "source": "./omniroute-skills", "description": "Skills do OmniRoute e claude-mem" },
+    { "name": "design", "source": "./design", "description": "Crítica de design, UX copy, acessibilidade, handoff" },
+    { "name": "postiz", "source": "./postiz", "description": "Agendamento de posts em redes sociais via Postiz" }
+  ]
+}

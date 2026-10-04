@@ -1,0 +1,10 @@
+{
+  "name": "omniroute-skills",
+  "version": "0.1.0",
+  "description": "OmniRoute AI-gateway skills (46) plus claude-mem persistent memory, bundled so Claude can use them on demand. Covers provider routing, combos and fallback chains, API keys and budgets, compression, caching, MCP/A2A, backups, and the OmniRoute CLI, all targeting the local OmniRoute server on localhost:20128.",
+  "author": {
+    "name": "Capitão"
+  },
+  "keywords": ["omniroute", "ai-gateway", "routing", "llm", "claude-mem", "memory", "cli"],
+  "license": "MIT"
+}

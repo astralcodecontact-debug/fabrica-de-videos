@@ -1,0 +1,9 @@
+{
+  "raiz_canais_mac": "/Volumes/<nome do SSD>/01 CANAIS",
+  "volume_ssd": "/Volumes/<nome do SSD>",
+  "drive_musicas_mac": "~/Library/CloudStorage/GoogleDrive-<seu e-mail>/Meu Drive/Canais de Musica",
+  "painel_url": "https://claude.ai/artifact/<id do painel Diario de Bordo>",
+  "nome": "<seu nome>",
+  "cidade": "<cidade, UF>",
+  "faculdade": "<curso e instituicao>"
+}

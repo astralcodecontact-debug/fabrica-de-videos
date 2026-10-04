@@ -1,0 +1,8 @@
+
+# credenciais e registros locais
+.capitao/
+client_secret*.json
+tokens/
+enviados.json
+.duracoes.json
+__pycache__/
