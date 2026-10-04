@@ -24,12 +24,15 @@
         "qua",
         "sex"
       ],
-      "horario": "padrao do canal (confirmar no Studio)",
+      "horario": "18:00",
       "nicho_vidiq": [
         "bossa nova"
       ],
       "observacoes": "Unico canal monetizado. Views caindo desde abril, em relancamento: prioridade em titulo e thumb.",
-      "duracao_obs": "padrao do canal: confirmar com o Capitao e preencher em minutos"
+      "duracao_obs": "padrao do canal: confirmar com o Capitao e preencher em minutos",
+      "pico_audiencia": null,
+      "pico_estimado": "21:00",
+      "pico_fonte": "provisorio: horario antigo + 3h; medir com vidiq_subscriber_insights"
     },
     "space-jazz-noir": {
       "nome": "Space Jazz Noir",
@@ -49,7 +52,10 @@
         "noir jazz",
         "late night jazz",
         "space jazz"
-      ]
+      ],
+      "pico_audiencia": null,
+      "pico_estimado": "21:00",
+      "pico_fonte": "provisorio: horario antigo + 3h; medir com vidiq_subscriber_insights"
     },
     "mindforge-studio": {
       "nome": "MindForge Studio",
@@ -69,7 +75,10 @@
         "focus music playlist",
         "flowstate"
       ],
-      "intro": "skill mindforge-quote-intro: citacao real e atribuida no inicio de todo video"
+      "intro": "skill mindforge-quote-intro: citacao real e atribuida no inicio de todo video",
+      "pico_audiencia": null,
+      "pico_estimado": "11:00",
+      "pico_fonte": "provisorio: horario antigo + 3h; medir com vidiq_subscriber_insights"
     },
     "classical-adagio": {
       "nome": "Classical Adagio Music",
@@ -94,7 +103,10 @@
         "neoclassical piano reading",
         "calm classical piano"
       ],
-      "compartilha_faixas_com": "ars-melancholia"
+      "compartilha_faixas_com": "ars-melancholia",
+      "pico_audiencia": null,
+      "pico_estimado": "21:30",
+      "pico_fonte": "provisorio: horario antigo + 3h; medir com vidiq_subscriber_insights"
     },
     "ars-melancholia": {
       "nome": "Ars Melancholia",
@@ -113,7 +125,10 @@
       "nicho_vidiq": [
         "dark academia"
       ],
-      "compartilha_faixas_com": "classical-adagio"
+      "compartilha_faixas_com": "classical-adagio",
+      "pico_audiencia": null,
+      "pico_estimado": "22:00",
+      "pico_fonte": "provisorio: horario antigo + 3h; medir com vidiq_subscriber_insights"
     },
     "vice-report-br": {
       "nome": "Vice Report BR",
@@ -145,5 +160,9 @@
     "Primeiro video de canal novo sobe como rascunho privado ate o Capitao aprovar.",
     "Nada inventado: fatos com fonte, citacoes reais e atribuidas, rumor marcado como rumor.",
     "Mudanca de nome ou @ de canal e sempre o Capitao quem faz."
-  ]
+  ],
+  "regra_horario": {
+    "antecedencia_pico_h": 3,
+    "como": "horario de publicacao = pico_audiencia menos antecedencia_pico_h, no fuso de Campo Grande (-04:00). pico_audiencia vem do vidiq_subscriber_insights (timezoneOffset -04:00), pegando o inicio da janela de 3h mais forte; anote a fonte e a data em pico_fonte. Sem medicao, use pico_estimado do nicho e marque pico_fonte como estimativa."
+  }
 }

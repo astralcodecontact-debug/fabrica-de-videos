@@ -122,6 +122,15 @@ def trava(mp4: Path, info: dict, canal: dict) -> list:
             quando = dt.datetime.fromisoformat(info["publicar_em"])
             if quando.tzinfo is None:
                 erros.append("publicar_em sem fuso (use -04:00 para Campo Grande)")
+            elif re.fullmatch(r"\d{2}:\d{2}", str(canal.get("horario", ""))):
+                # regra: publicar ~3h antes do pico; horario do canal ja e pico menos 3h
+                h, m = map(int, canal["horario"].split(":"))
+                local = quando.astimezone(dt.timezone(dt.timedelta(hours=-4)))
+                dif = abs((local.hour * 60 + local.minute) - (h * 60 + m))
+                dif = min(dif, 1440 - dif)
+                if dif > 60:
+                    erros.append(f"publicar_em {local:%H:%M} longe do horario do canal {canal['horario']} "
+                                 "(pico de audiencia menos 3h)")
         except ValueError:
             erros.append(f"publicar_em invalido: {info['publicar_em']}")
     return erros
