@@ -1,0 +1,33 @@
+{
+  "canal": "ars-melancholia",
+  "canva_design": "DAHKcFzPHEc",
+  "drive_musicas": "Canais de Musica/Ars Melancholia/Musicas novas",
+  "obs": "Rascunho feito na nuvem. No Mac: exportar as 3 paginas do Canva para Artes/1..3.png, montar mixes, colar a tracklist no lugar de {TRACKLIST} e gravar cada item como Videos finais/ars_melancholia_video<N>_info.json.",
+  "videos": [
+    {
+      "n": 1,
+      "canto_eq": "bl",
+      "titulo": "The Sound of Forgotten Keys | Dark Academia Piano for Late Night Study",
+      "descricao": "Candlelight, an old piano and an owl keeping watch. Two hours of dark academia piano for reading, writing and studying late into the night.\n\nTracklist\n{TRACKLIST}\n\nSubscribe to Ars Melancholia for new dark classical music every Monday, Wednesday and Friday.",
+      "tags": ["dark academia", "dark academia piano", "dark academia music", "piano for studying", "late night study music", "melancholic piano", "neoclassical piano", "dark classical music", "study music", "reading music", "candlelight piano", "gothic piano", "ars melancholia"],
+      "publicar_em": "2026-10-05T19:00:00-04:00"
+    },
+    {
+      "n": 2,
+      "canto_eq": "br",
+      "titulo": "The Sound of Forgotten Strings | Dark Academia Cello by the Fire",
+      "descricao": "A cello by the fireplace while a raven listens in the dark. Two hours of melancholic strings for reading, writing and quiet study.\n\nTracklist\n{TRACKLIST}\n\nSubscribe to Ars Melancholia for new dark classical music every Monday, Wednesday and Friday.",
+      "tags": ["dark academia", "dark academia cello", "dark academia music", "cello for studying", "melancholic cello", "dark classical music", "neoclassical strings", "study music", "reading music", "fireplace music", "sad cello", "gothic classical", "ars melancholia"],
+      "publicar_em": "2026-10-07T19:00:00-04:00"
+    },
+    {
+      "n": 3,
+      "canto_eq": "bl",
+      "titulo": "The Sound of Rain on the River | Dark Academia for a Lonely Night",
+      "titulo_obs": "A arte 3 diz 'The Sound of Silence' (nome de musica famosa). Sugestao: trocar o texto da arte para combinar com este titulo, ou o Capitao escolhe outro.",
+      "descricao": "Gaslights on a wet bridge, a city asleep across the river. Two hours of dark academia music for walking, thinking and studying alone at night.\n\nTracklist\n{TRACKLIST}\n\nSubscribe to Ars Melancholia for new dark classical music every Monday, Wednesday and Friday.",
+      "tags": ["dark academia", "dark academia music", "rainy night music", "melancholic classical", "night study music", "dark classical music", "neoclassical", "study music", "reading music", "lonely night music", "gothic classical", "moody piano", "ars melancholia"],
+      "publicar_em": "2026-10-09T19:00:00-04:00"
+    }
+  ]
+}
