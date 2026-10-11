@@ -27,6 +27,13 @@ Todos passam por `estrategista-youtube` (títulos e thumbs) e `revisor-youtube` 
 3. Plugins (opcional): `/plugin marketplace add ./plugins` e depois `/plugin install postiz@capitao` (e `design@capitao`, `omniroute-skills@capitao`).
 4. Conectores (vidIQ, Canva, Gmail, Drive) não vêm no repositório: adicione com `claude mcp add`.
 
+## Rodar no Mac e falar pelo celular (Remote Control)
+1. No Terminal do Mac: `git clone https://github.com/astralcodecontact-debug/fabrica-de-videos ~/fabrica-de-videos && cd ~/fabrica-de-videos && git checkout claude/practical-planck-ztlmvw`
+2. `pip3 install -r ferramentas/requirements.txt` e `brew install ffmpeg` (se ainda não tiver).
+3. Copie `ferramentas/local.exemplo.json` para `~/.capitao/local.json` e preencha.
+4. `claude remote-control` dentro da pasta. A sessão aparece no app Claude Code do celular.
+5. Para o Mac não dormir enquanto renderiza: `caffeinate -dims &`
+
 ## Postagem automática (canais de música)
 Os vídeos de música sobem e agendam sozinhos logo depois do render, pela API oficial do YouTube. Antes de subir, uma trava confere resolução, duração, áudio, título, descrição, tags e a regra do travessão; o que reprovar não sobe e fica no registro. A thumbnail é a arte do Canva.
 

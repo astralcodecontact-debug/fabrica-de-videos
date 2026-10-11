@@ -9,6 +9,9 @@ Repositório com as skills, agentes e ferramentas que produzem os vídeos de You
 * Canais de música: sobem e agendam sozinhos pelo `ferramentas/postar_youtube.py`, sempre passando pela trava automática. Nunca suba por outro caminho. Vice Report BR: o Capitão envia; os agentes nunca publicam.
 * Nunca apague arquivos do Capitão; mova para `tmpm/`.
 
+## Quando o Capitão mandar fotos
+Foto (ou link do Canva) com o nome de um canal de música = pedido para produzir o vídeo. Não pergunte nada que já esteja em `canais/canais.json`: rode o agente `produtor-musica` para aquele canal com aquelas artes, use o fundo animado (`ferramentas/animar_natureza.py`, protegendo personagem e texto) se o Capitão tiver pedido movimento, renderize, passe pelo `revisor-youtube` e entregue título, descrição, tracklist e tags. As músicas ficam no SSD em `<raiz_canais_mac>/<pasta do canal>/Musicas` e no Drive sincronizado (`drive_musicas_mac`); procure nos dois. Se faltar só o dia, use o próximo dia de publicação livre do canal.
+
 ## Dados pessoais
 Nome, cidade, faculdade, e-mail, nome do SSD, caminhos do Mac e link do painel ficam em `~/.capitao/local.json` (modelo em `ferramentas/local.exemplo.json`). Leia esse arquivo quando precisar desses valores e nunca grave nenhum deles no repositório: ele é público.
 
