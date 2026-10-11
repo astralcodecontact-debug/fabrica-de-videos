@@ -136,9 +136,8 @@
       "pasta": "Snoopy Loves Music",
       "estilo": "lo-fi",
       "idioma_textos": "en",
-      "duracao_min": null,
-      "duracao_max": null,
-      "duracao_obs": "confirmar com o Capitao e preencher em minutos",
+      "duracao_min": 90,
+      "duracao_max": 90,
       "dias_publicacao": [
         "seg",
         "qua",
@@ -153,7 +152,8 @@
       "pico_audiencia": null,
       "pico_estimado": "21:00",
       "pico_fonte": "provisorio: estimativa do nicho lo-fi; medir com vidiq_subscriber_insights",
-      "observacoes": "Snoopy e personagem registrado (Peanuts). Thumbs e artes nao devem usar o personagem nem imagens dele."
+      "observacoes": "Snoopy e personagem registrado (Peanuts). Thumbs e artes nao devem usar o personagem nem imagens dele.",
+      "repetir_faixas": true
     },
     "vice-report-br": {
       "nome": "Vice Report BR",

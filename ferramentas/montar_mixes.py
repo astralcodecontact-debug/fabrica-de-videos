@@ -12,6 +12,7 @@ Uso:
 
 --evitar le as listas lista_video*.txt de outro canal (Classical Adagio e
 Ars Melancholia dividem faixas) e nao usa nenhuma faixa que ja esta la.
+--repetir deixa repetir faixas quando a musica disponivel nao fecha a duracao.
 --so-portugues aceita so faixas cujo nome tem cara de portugues (Chill in Rio).
 """
 import argparse
@@ -75,6 +76,8 @@ def main() -> int:
     ap.add_argument("--evitar")
     ap.add_argument("--so-portugues", action="store_true")
     ap.add_argument("--semente", type=int)
+    ap.add_argument("--repetir", action="store_true",
+                    help="se as faixas nao bastarem, repete (nunca a mesma duas vezes seguidas)")
     a = ap.parse_args()
 
     pasta = Path(a.pasta).expanduser()
@@ -104,7 +107,7 @@ def main() -> int:
 
     alvo = a.minutos * 60
     total_disp = sum(cache[p.name] for p in faixas.values())
-    if total_disp < alvo:
+    if total_disp < alvo and not a.repetir:
         print(f"ERRO: so ha {hms(total_disp)} de musica utilizavel, alvo {hms(alvo)}",
               file=sys.stderr)
         return 2
@@ -112,14 +115,19 @@ def main() -> int:
     rnd = random.Random(a.semente)
     resumo = []
     for v in range(1, a.videos + 1):
-        ordem = list(faixas.values())
-        rnd.shuffle(ordem)
         t, escolhidas = 0.0, []
-        for p in ordem:
-            if t >= alvo:
+        while t < alvo:
+            ordem = list(faixas.values())
+            rnd.shuffle(ordem)
+            if escolhidas and len(ordem) > 1 and ordem[0] == escolhidas[-1][1]:
+                ordem.append(ordem.pop(0))
+            for p in ordem:
+                if t >= alvo:
+                    break
+                escolhidas.append((t, p))
+                t += cache[p.name]
+            if not a.repetir:
                 break
-            escolhidas.append((t, p))
-            t += cache[p.name]
         with open(pasta / f"lista_video{v}.txt", "w", encoding="utf-8") as f:
             for _, p in escolhidas:
                 rel = f"Musicas/{p.name}".replace("'", "'\\''")
