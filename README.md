@@ -29,16 +29,14 @@ Todos passam por `estrategista-youtube` (títulos e thumbs) e `revisor-youtube` 
 
 ## Rodar no Mac e falar pelo celular (Remote Control)
 1. No Terminal do Mac: `git clone https://github.com/astralcodecontact-debug/fabrica-de-videos ~/fabrica-de-videos && cd ~/fabrica-de-videos && git checkout claude/practical-planck-ztlmvw`
-2. `pip3 install -r ferramentas/requirements.txt` e `brew install ffmpeg` (se ainda não tiver).
-3. Copie `ferramentas/local.exemplo.json` para `~/.capitao/local.json` e preencha.
-4. `claude remote-control` dentro da pasta. A sessão aparece no app Claude Code do celular.
-5. Para o Mac não dormir enquanto renderiza: `caffeinate -dims &`
+2. Copie `ferramentas/local.exemplo.json` para `~/.capitao/local.json` e preencha.
+3. `bash iniciar.sh` dentro da pasta. Na primeira vez ele instala ffmpeg e cria o ambiente Python do projeto (`.venv`); depois mantém o Mac acordado e abre o `claude remote-control`. A sessão aparece no app Claude Code do celular. Nas próximas vezes, é só rodar `bash iniciar.sh` de novo.
 
 ## Postagem automática (canais de música)
 Os vídeos de música sobem e agendam sozinhos logo depois do render, pela API oficial do YouTube. Antes de subir, uma trava confere resolução, duração, áudio, título, descrição, tags e a regra do travessão; o que reprovar não sobe e fica no registro. A thumbnail é a arte do Canva.
 
 Configuração única no Mac:
-1. `pip3 install -r ferramentas/requirements.txt`
+1. `bash iniciar.sh` (cria o ambiente Python do projeto e instala as bibliotecas)
 2. Google Cloud: criar um projeto, ativar a "YouTube Data API v3", configurar a tela de consentimento OAuth (tipo Externo, seu e-mail como usuário de teste) e criar uma credencial OAuth do tipo "App para computador". Baixar o JSON como `~/.capitao/youtube/client_secret.json`.
 3. Autorizar cada canal (escolha o canal certo na tela do Google): `python3 ferramentas/postar_youtube.py autorizar --canal ars-melancholia` e repetir para os outros.
 4. Pedir a auditoria do projeto à Google ("YouTube API Services audit"). Sem ela, vídeos enviados por projeto novo ficam travados como privados.

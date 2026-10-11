@@ -6,3 +6,4 @@ tokens/
 enviados.json
 .duracoes.json
 __pycache__/
+.venv/
