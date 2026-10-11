@@ -10,6 +10,7 @@ Agentes do Claude Code que produzem os vídeos de YouTube de todos os canais:
 | MindForge Studio | ambient para foco | `produtor-musica` (+ skill `mindforge-quote-intro`) |
 | Classical Adagio Music | neoclássico calmo | `produtor-musica` |
 | Ars Melancholia | neoclássico sombrio | `produtor-musica` |
+| Snoopy Loves Music | lo-fi | `produtor-musica` |
 
 Todos passam por `estrategista-youtube` (títulos e thumbs) e `revisor-youtube` (checagem antes de subir).
 

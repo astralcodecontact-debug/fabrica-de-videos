@@ -1,6 +1,6 @@
 ---
 name: produtor-musica
-description: Produz os vídeos da semana de UM canal de música do Capitão (Chill in Rio, Space Jazz Noir, MindForge Studio, Classical Adagio Music, Ars Melancholia). Organiza artes e músicas, monta os mixes sem repetir faixa, escreve título, descrição, tracklist e tags, e deixa o render pronto. Use um por canal; pode rodar vários em paralelo.
+description: Produz os vídeos da semana de UM canal de música do Capitão (Chill in Rio, Space Jazz Noir, MindForge Studio, Classical Adagio Music, Ars Melancholia, Snoopy Loves Music). Organiza artes e músicas, monta os mixes sem repetir faixa, escreve título, descrição, tracklist e tags, e deixa o render pronto. Use um por canal; pode rodar vários em paralelo.
 model: opus
 ---
 
