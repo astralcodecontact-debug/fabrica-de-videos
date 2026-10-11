@@ -178,8 +178,8 @@ def autorizar(slug: str, canais: dict) -> None:
 def preparar_thumb(pasta: Path, n: str):
     from PIL import Image
 
-    candidatos = [pasta / "Artes" / f"{n}_thumb.{e}" for e in ("png", "jpg", "jpeg")]
-    candidatos += [pasta / "Artes" / f"{n}.{e}" for e in ("png", "jpg", "jpeg")]
+    candidatos = [pasta / "Artes" / f"{n}_thumb.{e}" for e in ("png", "jpg", "jpeg", "webp")]
+    candidatos += [pasta / "Artes" / f"{n}.{e}" for e in ("png", "jpg", "jpeg", "webp")]
     origem = next((c for c in candidatos if c.exists()), None)
     if not origem:
         return None

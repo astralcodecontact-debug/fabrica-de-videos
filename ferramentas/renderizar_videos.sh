@@ -6,6 +6,7 @@
 #   bash renderizar_videos.sh <nome_saida> [videos] [canto]
 #   nome_saida: ex. ars_melancholia   videos: ex. "1 2 3" (padrao)
 #   canto: bl (baixo esq.), br (baixo dir., padrao), tl, tr. Use o canto oposto ao texto da arte.
+#   Se existir Artes/<N>_loop.mp4 (loop animado), ele vira o fundo no lugar da imagem.
 #   CANAL=<slug> (ex. ars-melancholia) sobe e agenda no YouTube assim que termina.
 #   POS_1, POS_2... e COR_1, COR_2... no ambiente sobrescrevem posicao (x:y) e cor por video.
 #
@@ -38,8 +39,15 @@ for v in $VIDEOS; do
   out="Videos finais/${NOME}_video$v.mp4"
   [ -s "$out" ] && { echo "ja existe: $out"; continue; }
   arte=""
-  for ext in png jpg jpeg; do [ -f "Artes/$v.$ext" ] && arte="Artes/$v.$ext" && break; done
-  [ -n "$arte" ] || { echo "falta Artes/$v.png" >&2; exit 1; }
+  for ext in png jpg jpeg webp; do [ -f "Artes/$v.$ext" ] && arte="Artes/$v.$ext" && break; done
+  # fundo animado (ferramentas/animar_natureza.py) tem prioridade sobre a imagem parada
+  if [ -f "Artes/${v}_loop.mp4" ]; then
+    FUNDO=(-stream_loop -1 -i "Artes/${v}_loop.mp4")
+  elif [ -n "$arte" ]; then
+    FUNDO=(-loop 1 -framerate 24 -i "$arte")
+  else
+    echo "falta Artes/$v.png ou Artes/${v}_loop.mp4" >&2; exit 1
+  fi
   [ -f "lista_video$v.txt" ] || { echo "falta lista_video$v.txt" >&2; exit 1; }
   pv="POS_$v"; cv="COR_$v"
   pos="${!pv:-$POS_PADRAO}"; col="${!cv:-0xF3E6C6}"
@@ -47,7 +55,7 @@ for v in $VIDEOS; do
   echo "== video $v: juntando audio"
   ffmpeg -y -loglevel error -f concat -safe 0 -i "lista_video$v.txt" -c:a aac -b:a 192k -ar 48000 "$audio"
   echo "== video $v: renderizando"
-  ffmpeg -y -loglevel error -stats -loop 1 -framerate 24 -i "$arte" -i "$audio" -filter_complex \
+  ffmpeg -y -loglevel error -stats "${FUNDO[@]}" -i "$audio" -filter_complex \
 "[0:v]scale=2560:1440:force_original_aspect_ratio=increase,crop=2560:1440,format=yuv420p[bg];\
 [1:a]aformat=channel_layouts=mono,highpass=f=50,lowpass=f=9000,showfreqs=s=48x44:mode=bar:ascale=log:fscale=log:win_size=2048:averaging=3:overlap=0.75:colors=$col,\
 format=rgba,scale=432:44:flags=neighbor,geq=r='r(X,Y)':g='g(X,Y)':b='b(X,Y)':a='if(gte(mod(X,9),3),0,alpha(X,Y)*0.8)',split[t][r];\
