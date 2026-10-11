@@ -3,7 +3,7 @@
 # Uso: bash iniciar.sh   (dentro da pasta fabrica-de-videos)
 set -e
 cd "$(dirname "$0")"
-export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"
 command -v ffmpeg >/dev/null || brew install ffmpeg
 if [ ! -x .venv/bin/python3 ]; then
   echo "Criando o ambiente Python do projeto (so na primeira vez)..."
@@ -15,6 +15,11 @@ source .venv/bin/activate
 mkdir -p ~/.capitao
 [ -f ~/.capitao/local.json ] || echo "Aviso: falta ~/.capitao/local.json (modelo em ferramentas/local.exemplo.json)"
 git pull -q --ff-only 2>/dev/null || true
+if ! command -v claude >/dev/null; then
+  echo "Falta o Claude Code. Instale com:  curl -fsSL https://claude.ai/install.sh | bash"
+  echo "Depois feche e abra o Terminal, rode  claude  uma vez para entrar na conta, e rode  bash iniciar.sh  de novo."
+  exit 1
+fi
 caffeinate -dims -w $$ &
 echo "Pronto. Abrindo o Remote Control; a sessao aparece no app Claude Code do celular."
 exec claude remote-control
