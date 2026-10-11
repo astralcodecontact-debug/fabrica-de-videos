@@ -8,6 +8,8 @@ description: "Produção semanal (domingo) dos vídeos dos canais de música do 
 O Capitão só manda as fotos e diz o canal. Claude faz o resto sem pedir nada além do necessário. Siga exatamente este caminho; os outros já falharam.
 
 ## Canais
+Fonte única: `canais/canais.json` (duração, dias, horário, pasta no SSD e `pasta_drive`). A tabela é só referência rápida.
+
 | Canal | Estilo | Duração | Horário (Campo Grande) |
 |---|---|---|---|
 | Chill in Rio | bossa nova (só faixas com nome em português) | padrão do canal | padrão do canal |
@@ -15,6 +17,7 @@ O Capitão só manda as fotos e diz o canal. Claude faz o resto sem pedir nada a
 | MindForge Studio | ambient | 2h15 a 2h30 | 8h |
 | Classical Adagio Music (@ClassicalAdagioMusic) | neoclássico relax acadêmico | 2h | 18h30 |
 | Ars Melancholia | neoclássico sombrio | 2h | 19h |
+| Snoopy Loves Music | lo-fi (pode repetir faixa) | 1h30 | 18h |
 
 Publicação seg, qua, sex. Classical Adagio e Ars Melancholia compartilham faixas (ordem diferente, nunca a mesma faixa nos dois na mesma semana). Primeiro vídeo de canal novo: rascunho privado até o Capitão aprovar.
 
@@ -24,35 +27,20 @@ Publicação seg, qua, sex. Classical Adagio e Ars Melancholia compartilham faix
 - Filesystem MCP do Mac: erro de schema.
 
 ## Fluxo
-1. **Acesso** (no início, um pedido só): device_request_folder_access para o SSD externo (`volume_ssd` em ~/.capitao/local.json) e a pasta do Google Drive para computador (`drive_musicas_mac` de ~/.capitao/local.json). Se o Drive para computador não estiver instalado, usar ~/Downloads e baixar a pasta Musicas novas pelo Claude in Chrome (Drive > ⋮ > Baixar), pedindo uma única confirmação para todos os downloads da sessão.
-2. **Fotos**: vêm anexadas no chat ou em ~/Downloads. Salvar em `01 CANAIS/<CANAL>/Artes/1.png, 2.png, 3.png`.
-3. **Músicas**: copiar do Drive sincronizado para `01 CANAIS/<CANAL>/Musicas/` só o que for novo (`rsync -a --ignore-existing`). Jazz usa a pasta do Space Jazz Noir.
-4. Gravações no SSD (fuse) aparecem com atraso: conferir com `sleep 3`. `rm` não é permitido; mover lixo para `tmpm/`.
-5. **Mixes** (python, scripts em ~/w): embaralhar, não repetir nome base no vídeo (ignorar sufixos " (1)"), parar na duração alvo. Gerar `lista_video{1,2,3}.txt` (`file 'Musicas/<nome>.mp3'`) e tracklist H:MM:SS.
-6. **Info**: `Videos finais/<canal>_video{v}_info.txt` com título, descrição em inglês (2 frases + tracklist + convite para inscrever), hashtags e tags. Sem travessões.
-7. **Render no Mac nativo**: script abaixo em `<CANAL>/RENDERIZAR_VIDEOS.command` (ajustar NOME, pos e col; EQ no canto oposto ao texto da arte). Abrir via computer use: Finder (full) + Terminal (click), request_full_control, app_release antes das ferramentas de tela, Finder > Ir > Ir para Pasta, digitar caminho do .command, Enter, duplo clique. Dois monitores: Tela Retina Integrada e ARZOPA (switch_display). ~40 min por vídeo de 2h.
-8. send_later em ~45 min para checar `Videos finais/` e subir.
-9. **Upload**: YouTube Studio no Claude in Chrome (avatar > Mudar de conta), preencher do info.txt, agendar no horário do canal. Mudanças de nome ou @ de canal: o Capitão faz.
+Roda no Mac (sessão do Claude Code aberta com `bash iniciar.sh`, falando pelo app via Remote Control). Na nuvem não há SSD, render nem envio.
+1. **Fotos**: subagente não enxerga imagem do chat. A conversa principal grava com `python3 ferramentas/fotos_do_chat.py "<raiz_canais_mac>/<pasta>/Artes" --substituir` (vira 1, 2, 3 na ordem enviada; artes antigas vão para `tmpm/`). Link do Canva: exportar 2560x1440 pelo conector. Foto abaixo de 2560x1440: pedir o original.
+2. **Músicas**: `python3 ferramentas/sincronizar_musicas.py <slug>` copia só o que é novo do Drive sincronizado (`drive_musicas_mac`/`pasta_drive`) para `<pasta>/Musicas` e mostra os minutos disponíveis. Faixas que ficaram em ~/Downloads: `--extra ~/Downloads --desde-dias 3`. Jazz usa a pasta do Space Jazz Noir.
+3. Gravações no SSD aparecem com atraso: conferir com `sleep 3`. Nunca apagar; mover lixo para `tmpm/`.
+4. **Mixes**: `python3 ferramentas/montar_mixes.py "<pasta>" --minutos <duracao_min> --videos 3` (embaralha, não repete nome base no vídeo, para na duração alvo; gera `lista_videoN.txt` e `tracklist_videoN.txt`). Chill in Rio: `--so-portugues`. No segundo entre Classical Adagio e Ars Melancholia: `--evitar "<pasta do outro>"`. Snoopy: `--repetir`.
+5. **Info**: `Videos finais/<nome>_video<N>_info.txt` e `_info.json` (título, descrição em inglês com 2 frases, tracklist e convite para inscrever, hashtags, tags, `publicar_em`). Sem travessões.
+6. **Render e envio**: `CANAL=<slug> bash ferramentas/renderizar_videos.sh <nome> "1 2 3" <canto>` dentro da pasta do canal (EQ no canto oposto ao texto da arte). Uns 40 min por vídeo de 2h. No fim o `ferramentas/postar_youtube.py` passa pela trava, sobe e agenda sozinho; acompanhar `~/.capitao/youtube/registro.log`.
+7. Upload só pelo `postar_youtube.py`. Nada de YouTube Studio no navegador. Mudanças de nome ou @ de canal: o Capitão faz.
 
 ## Padrão visual aprovado
 2560x1440, 24 fps, fade in de 3s, EQ de 48 barras finas marfim com reflexo, pequeno, num canto.
 
 ## Script de render
-```bash
-#!/bin/bash
-cd "$(dirname "$0")" || exit 1
-export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
-command -v ffmpeg >/dev/null || brew install ffmpeg
-NOME=ars_melancholia
-pos=( "" "300:1090" "1980:1230" "150:1230" ); col=( "" "0xF2E2B8" "0xF3E6C6" "0xF3E6C6" )
-for v in 1 2 3; do
-  out="Videos finais/${NOME}_video$v.mp4"
-  [ -s "$out" ] && continue
-  ffmpeg -y -loglevel error -f concat -safe 0 -i lista_video$v.txt -c:a aac -b:a 192k -ar 48000 /tmp/a$v.m4a
-  ffmpeg -y -loglevel error -stats -loop 1 -framerate 24 -i "Artes/$v.png" -i /tmp/a$v.m4a -filter_complex "[0:v]scale=2560:1440,format=yuv420p[bg];[1:a]aformat=channel_layouts=mono,highpass=f=50,lowpass=f=9000,showfreqs=s=48x44:mode=bar:ascale=log:fscale=log:win_size=2048:averaging=3:overlap=0.75:colors=${col[$v]},format=rgba,scale=432:44:flags=neighbor,geq=r='r(X,Y)':g='g(X,Y)':b='b(X,Y)':a='if(gte(mod(X,9),3),0,alpha(X,Y)*0.8)',split[t][r];[r]vflip,colorchannelmixer=aa=0.25,crop=432:16:0:0[rf];[t][rf]vstack,fps=24[w];[bg][w]overlay=${pos[$v]}:shortest=1,fade=t=in:st=0:d=3[v]" -map "[v]" -map 1:a -c:v h264_videotoolbox -b:v 8M -r 24 -c:a copy -shortest -movflags +faststart "$out.tmp.mp4" && mv "$out.tmp.mp4" "$out"
-done
-echo PRONTO; read
-```
+`ferramentas/renderizar_videos.sh` (2560x1440, 24 fps, fade de 3 s, EQ marfim). Usa `Artes/<N>_loop.mp4` como fundo animado se existir. `POS_<N>=x:y` e `COR_<N>=0x...` ajustam posição e cor do EQ por vídeo.
 
 ## Regras do Capitão
 Mínimo 2K. Sem travessões em textos. Prévias só se ele pedir mudança visual.

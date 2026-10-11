@@ -28,9 +28,12 @@ Todos passam por `estrategista-youtube` (títulos e thumbs) e `revisor-youtube` 
 4. Conectores (vidIQ, Canva, Gmail, Drive) não vêm no repositório: adicione com `claude mcp add`.
 
 ## Rodar no Mac e falar pelo celular (Remote Control)
-1. No Terminal do Mac: `git clone https://github.com/astralcodecontact-debug/fabrica-de-videos ~/fabrica-de-videos && cd ~/fabrica-de-videos && git checkout claude/practical-planck-ztlmvw`
+1. No Terminal do Mac: `git clone https://github.com/astralcodecontact-debug/fabrica-de-videos ~/fabrica-de-videos && cd ~/fabrica-de-videos && git checkout claude/youtube-video-production-agent-j0qhmq` (se já clonou antes: `cd ~/fabrica-de-videos && git fetch && git checkout claude/youtube-video-production-agent-j0qhmq`)
 2. Copie `ferramentas/local.exemplo.json` para `~/.capitao/local.json` e preencha.
 3. `bash iniciar.sh` dentro da pasta. Na primeira vez ele instala ffmpeg e cria o ambiente Python do projeto (`.venv`); depois mantém o Mac acordado e abre o `claude remote-control`. A sessão aparece no app Claude Code do celular. Nas próximas vezes, é só rodar `bash iniciar.sh` de novo.
+
+## Foto e nome do canal, vídeo pronto
+Na sessão do Mac (pelo app), mande as fotos (uma por vídeo, na ordem) e o nome do canal, por exemplo "Snoopy, 3 vídeos" ou "Ars Melancholia, sexta, com movimento". O Claude grava as fotos em `Artes/`, puxa as músicas novas do Drive para o SSD, monta os mixes, escreve título, descrição, tracklist e tags, renderiza em 2K, passa pela trava e agenda no YouTube. O app reduz fotos anexadas: para manter 2560x1440, mande o link do Canva ou deixe o original na pasta `Artes` do canal no Drive. A sessão na nuvem (claude.ai/code) enxerga o Drive pelo conector, mas não o SSD; render e envio só no Mac.
 
 ## Postagem automática (canais de música)
 Os vídeos de música sobem e agendam sozinhos logo depois do render, pela API oficial do YouTube. Antes de subir, uma trava confere resolução, duração, áudio, título, descrição, tags e a regra do travessão; o que reprovar não sobe e fica no registro. A thumbnail é a arte do Canva.
@@ -46,13 +49,15 @@ Configuração única no Mac:
 Registro de tudo em `~/.capitao/youtube/registro.log`; cada pasta de canal ganha um `enviados.json` para não subir duas vezes.
 
 ## Ferramentas
-* `ferramentas/montar_mixes.py <pasta do canal> --minutos 120 [--videos 3] [--evitar <canal irmão>] [--so-portugues]`
+* `ferramentas/fotos_do_chat.py <pasta Artes> [--quantas N] [--substituir]` (grava as fotos anexadas na conversa; `--listar` mostra o que tem)
+* `ferramentas/sincronizar_musicas.py <slug> [--extra ~/Downloads --desde-dias 3] [--simular]` (Drive para o SSD, só o que é novo)
+* `ferramentas/montar_mixes.py <pasta do canal> --minutos 120 [--videos 3] [--evitar <canal irmão>] [--so-portugues] [--repetir]`
 * `CANAL=<slug> ferramentas/renderizar_videos.sh <nome_saida> ["1 2 3"] [bl|br|tl|tr]` (rodar dentro da pasta do canal; com CANAL sobe sozinho no fim)
 * `ferramentas/postar_youtube.py autorizar|enviar|enviar-todos|status [--simular]`
 
 Precisa de `ffmpeg`, `ffprobe` e Python 3.
 
 ## Para ajustar
-Tudo de canal (duração, horário, pasta) fica em `canais/canais.json`. Falta preencher a duração do Chill in Rio e conferir os nomes das pastas no SSD.
+Tudo de canal (duração, horário, pasta no SSD, `pasta_drive` no Drive) fica em `canais/canais.json`. Falta preencher a duração do Chill in Rio e conferir os nomes das pastas no SSD.
 
 O pacote original veio do zip `capitao-claude-code`; o LEIA-ME dele está em `LEIA-ME-pacote-original.md`.
