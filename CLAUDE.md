@@ -17,8 +17,8 @@ Nome, cidade, faculdade, e-mail, nome do SSD, caminhos do Mac e link do painel f
 
 ## Onde está cada coisa
 * `canais/canais.json`: fonte única dos canais (pasta, estilo, duração, dias, horário). Mude aqui, não nos agentes.
-* `.claude/agents/`: produtor-musica, vice-report-video-longo, estrategista-youtube, revisor-youtube, e os dois originais (organizador-do-capitao, vice-report-pauta-diaria).
-* `.claude/commands/`: `/semana-youtube`, `/postar`, `/video-musica`, `/video-gta`, `/estrategia`, `/revisar-video`, `/plano-do-dia`, `/pauta-gta`.
+* `.claude/agents/`: produtor-musica, vice-report-video-longo, estrategista-youtube, revisor-youtube, cacador-subnichos, e os dois originais (organizador-do-capitao, vice-report-pauta-diaria).
+* `.claude/commands/`: `/semana-youtube`, `/postar`, `/video-musica`, `/video-gta`, `/estrategia`, `/revisar-video`, `/plano-do-dia`, `/pauta-gta`, `/subnichos`.
 * `.claude/skills/`: as 35 skills do pacote.
 * `ferramentas/`: `montar_mixes.py` (listas de faixas e tracklist), `renderizar_videos.sh` (render 2K com fade e EQ) e `postar_youtube.py` (envio e agendamento pela API oficial). Credenciais ficam em `~/.capitao/youtube/`, nunca no repositório.
 * `plugins/`: marketplace local "capitao" (omniroute-skills, design, postiz).
